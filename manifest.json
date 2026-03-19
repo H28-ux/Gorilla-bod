@@ -1,27 +1,22 @@
 {
-  "name": "Gorilla Dad",
-  "short_name": "Gorilla Dad",
-  "description": "Your personal gym tracker — workouts, mobility, iso holds and progress.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "name": "Gorilla Bod",
+  "short_name": "Gorilla Bod",
+  "description": "The people's fitness tracker — free, no account, no BS.",
+  "start_url": "/Gorilla-bod/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#090907",
   "theme_color": "#090907",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
-  ],
-  "categories": ["health", "fitness", "sports"],
-  "lang": "en"
+  ]
 }
