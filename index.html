@@ -394,6 +394,12 @@ input,select{font-family:'Barlow',sans-serif}
     <button class="more-btn" onclick="showTabClose('skills')">🎯<div>Skills</div></button>
     <button class="more-btn" onclick="showTabClose('bands')">🟡<div>Bands</div></button>
   </div>
+  <div style="border-top:1px solid #222;margin:8px 12px 0;padding:10px 0 4px;display:flex;gap:8px;justify-content:center">
+    <button style="flex:1;background:#1a1a1a;border:1px solid #c8f000;border-radius:8px;color:#c8f000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;padding:8px 4px;cursor:pointer" onclick="closeMoreMenu();autoExportBackup();toast('📦 Backup downloaded!')">💾 BACKUP</button>
+    <button style="flex:1;background:#1a1a1a;border:1px solid #555;border-radius:8px;color:#aaa;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;padding:8px 4px;cursor:pointer" onclick="closeMoreMenu();document.getElementById('gdRestoreInput').click()">📂 RESTORE</button>
+    <button style="flex:1;background:#1a1a1a;border:1px solid #ff6b1a;border-radius:8px;color:#ff6b1a;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;padding:8px 4px;cursor:pointer" onclick="closeMoreMenu();downloadApp()">⬇️ DOWNLOAD</button>
+  </div>
+  <input type="file" id="gdRestoreInput" accept=".json" style="display:none" onchange="restoreFromFile(this)">
 </div>
 
 <main class="main">
@@ -448,7 +454,9 @@ input,select{font-family:'Barlow',sans-serif}
   <div class="tab-row" id="exTypeTabs">
     <button class="tab-btn active-orange" onclick="setExType('fw')">🏋️ Weights</button>
     <button class="tab-btn" onclick="setExType('cal')">🤸 Calisthenics</button>
-    <button class="tab-btn" onclick="setExType('spec')">💪 Forearms &amp; Calves</button>
+    <button class="tab-btn" onclick="setExType('abs')">🔥 Abs</button>
+    <button class="tab-btn" onclick="setExType('forearms')">🤜 Forearms</button>
+    <button class="tab-btn" onclick="setExType('calves')">🦵 Calves</button>
   </div>
   <div class="tab-row" id="exLvlTabs">
     <button class="tab-btn active-green" onclick="setExLevel('all')">All</button>
@@ -1357,11 +1365,10 @@ var ISO=[
 
 
 // ═══════════════════════════════════════════════════════════════
-//  SPECIALITY — Forearms, Grip & Calves
+//  FOREARMS & GRIP
 // ═══════════════════════════════════════════════════════════════
-var SPEC = {
+var FOREARMS = {
   beginner:[
-    // FOREARMS & GRIP
     {n:'Wrist Curl',m:'Forearms',e:'🤏',r:'3x15',l:'beginner',t:'Forearms on bench, palms up, full ROM. Slow lowering is key.'},
     {n:'Reverse Wrist Curl',m:'Forearms',e:'🔃',r:'3x15',l:'beginner',t:'Palms down, curl knuckles up. Trains extensor muscles.'},
     {n:'Dead Hang',m:'Grip',e:'🙌',r:'3x30s',l:'beginner',t:'Hang from bar, full bodyweight. Best grip builder there is.'},
@@ -1372,16 +1379,8 @@ var SPEC = {
     {n:'Finger Extensions',m:'Forearms',e:'🖐️',r:'3x20',l:'beginner',t:'Rubber band around fingers, spread against resistance. Balances grip work.'},
     {n:'Hammer Curl',m:'Forearms',e:'🔨',r:'3x12',l:'beginner',t:'Neutral grip, elbows fixed. Brachioradialis and brachialis.'},
     {n:'Reverse Curl',m:'Forearms',e:'↩️',r:'3x12',l:'beginner',t:'Overhand grip barbell or DBs. Brachioradialis and wrist extensors.'},
-    // CALVES
-    {n:'Standing Calf Raise',m:'Calves',e:'⬆️',r:'3x20',l:'beginner',t:'Full range, pause at bottom. Most people shortchange ROM.'},
-    {n:'Seated Calf Raise',m:'Calves',e:'🪑',r:'3x20',l:'beginner',t:'Bent knee targets soleus. Essential for full calf development.'},
-    {n:'Single-Leg Calf Raise',m:'Calves',e:'1️⃣',r:'3x15ea',l:'beginner',t:'One leg, full ROM. Address imbalances, heavier load per leg.'},
-    {n:'Stair Calf Raise',m:'Calves',e:'🪜',r:'3x20',l:'beginner',t:'Heel off step edge, max stretch. Free and effective anywhere.'},
-    {n:'Jump Rope',m:'Calves',e:'🪢',r:'3x2min',l:'beginner',t:'On the balls of your feet. Natural calf pump and conditioning.'},
-    {n:'Calf Raise Walk',m:'Calves',e:'🚶',r:'3x20m',l:'beginner',t:'Walk on tiptoes — functional calf strength and balance.'},
   ],
   intermediate:[
-    // FOREARMS & GRIP
     {n:'Rice Bucket Digging',m:'Forearms',e:'🍚',r:'3x2min',l:'intermediate',t:'Plunge hands into rice bucket, open/close, rotate wrists. Old school fighter conditioning.'},
     {n:'Rice Bucket Pinching',m:'Forearms',e:'🌾',r:'3x90s',l:'intermediate',t:'Grab and release rice repeatedly. Builds crushing and pinching endurance.'},
     {n:'Rice Bucket Wrist Turns',m:'Forearms',e:'🔁',r:'3x90s',l:'intermediate',t:'Fists submerged, rotate wrists full range. Pronation and supination under load.'},
@@ -1394,16 +1393,8 @@ var SPEC = {
     {n:'Fat Grip Curl',m:'Forearms',e:'🫱',r:'3x10',l:'intermediate',t:'Fat Gripz or thick handles. Amplifies forearm recruitment on every curl.'},
     {n:'Wrist Roller',m:'Forearms',e:'🎚️',r:'3x3 rolls',l:'intermediate',t:'Hanging weight on rope, roll up and down. Old school forearm destroyer.'},
     {n:'Finger Push-Ups',m:'Forearms',e:'☝️',r:'3x10',l:'intermediate',t:'Balance on fingertips. Tendon and finger strength.'},
-    // CALVES
-    {n:'Donkey Calf Raise',m:'Calves',e:'🫏',r:'4x15',l:'intermediate',t:'Hips at 90°, weight on back. Stretched position targets gastrocnemius hard.'},
-    {n:'Leg Press Calf Raise',m:'Calves',e:'🦵',r:'4x20',l:'intermediate',t:'Full stretch at bottom, pause at top. Heavy load, full ROM.'},
-    {n:'Box Jump Calf',m:'Calves',e:'📦',r:'3x10',l:'intermediate',t:'Focus on pushing off with calves. Explosive triple extension.'},
-    {n:'Weighted Stair Raise',m:'Calves',e:'⚡',r:'3x15ea',l:'intermediate',t:'Single leg, holding DB. Maximum overload with full stretch.'},
-    {n:'Sprint Intervals',m:'Calves',e:'🏃',r:'6x30s',l:'intermediate',t:'Sprinting naturally loads calves hard. Explosive and functional.'},
-    {n:'Calf Raise on Slant Board',m:'Calves',e:'📐',r:'3x20',l:'intermediate',t:'Elevated toes increase stretch at bottom. Deep tissue stimulus.'},
   ],
   expert:[
-    // FOREARMS & GRIP
     {n:'One-Arm Dead Hang',m:'Grip',e:'☝️',r:'3x10s ea',l:'expert',t:'Single arm hang from bar. Extreme grip and shoulder strength.'},
     {n:'Rolling Handle Deadlift',m:'Grip',e:'🔩',r:'3x3',l:'expert',t:'Rotating handle — grip must work constantly. No cheating.'},
     {n:'Blob Lift',m:'Grip',e:'🪨',r:'3x5 ea',l:'expert',t:'Pinch 50% of hex DB by the head. Elite pinch strength.'},
@@ -1414,13 +1405,93 @@ var SPEC = {
     {n:'Card Tearing',m:'Forearms',e:'🃏',r:'3x attempts',l:'expert',t:'Tear decks of cards in half. Extreme grip and wrist strength test.'},
     {n:'Hub Lift',m:'Grip',e:'🎯',r:'3x5s ea',l:'expert',t:'Grip hub of 25–45lb plate with one hand, lift off ground.'},
     {n:'Thick Rope Climbing',m:'Grip',e:'🪢',r:'3x climbs',l:'expert',t:'No legs, arms only. Ultimate grip and forearm test.'},
-    // CALVES
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  CALVES
+// ═══════════════════════════════════════════════════════════════
+var CALVES = {
+  beginner:[
+    {n:'Standing Calf Raise',m:'Calves',e:'⬆️',r:'3x20',l:'beginner',t:'Full range, pause at bottom. Most people shortchange ROM.'},
+    {n:'Seated Calf Raise',m:'Calves',e:'🪑',r:'3x20',l:'beginner',t:'Bent knee targets soleus. Essential for full calf development.'},
+    {n:'Single-Leg Calf Raise',m:'Calves',e:'1️⃣',r:'3x15ea',l:'beginner',t:'One leg, full ROM. Address imbalances, heavier load per leg.'},
+    {n:'Stair Calf Raise',m:'Calves',e:'🪜',r:'3x20',l:'beginner',t:'Heel off step edge, max stretch. Free and effective anywhere.'},
+    {n:'Jump Rope',m:'Calves',e:'🪢',r:'3x2min',l:'beginner',t:'On the balls of your feet. Natural calf pump and conditioning.'},
+    {n:'Calf Raise Walk',m:'Calves',e:'🚶',r:'3x20m',l:'beginner',t:'Walk on tiptoes — functional calf strength and balance.'},
+    {n:'Eccentric Calf Lower',m:'Calves',e:'⬇️',r:'3x15',l:'beginner',t:'Rise with two legs, lower slowly on one. Great for beginners building strength.'},
+    {n:'Wall Calf Raise',m:'Calves',e:'🧱',r:'3x20',l:'beginner',t:'Hands on wall for balance, slow and controlled full ROM.'},
+  ],
+  intermediate:[
+    {n:'Donkey Calf Raise',m:'Calves',e:'🫏',r:'4x15',l:'intermediate',t:'Hips at 90°, weight on back. Stretched position targets gastrocnemius hard.'},
+    {n:'Leg Press Calf Raise',m:'Calves',e:'🦵',r:'4x20',l:'intermediate',t:'Full stretch at bottom, pause at top. Heavy load, full ROM.'},
+    {n:'Box Jump Calf',m:'Calves',e:'📦',r:'3x10',l:'intermediate',t:'Focus on pushing off with calves. Explosive triple extension.'},
+    {n:'Weighted Stair Raise',m:'Calves',e:'⚡',r:'3x15ea',l:'intermediate',t:'Single leg, holding DB. Maximum overload with full stretch.'},
+    {n:'Sprint Intervals',m:'Calves',e:'🏃',r:'6x30s',l:'intermediate',t:'Sprinting naturally loads calves hard. Explosive and functional.'},
+    {n:'Calf Raise on Slant Board',m:'Calves',e:'📐',r:'3x20',l:'intermediate',t:'Elevated toes increase stretch at bottom. Deep tissue stimulus.'},
+    {n:'Weighted Seated Raise',m:'Calves',e:'🪑',r:'4x15',l:'intermediate',t:'Plate on knees, full ROM. Soleus is the long-term calf mass builder.'},
+    {n:'Pause Calf Raise',m:'Calves',e:'⏸️',r:'3x12',l:'intermediate',t:'3 second pause at the bottom stretch. Eliminates bounce, maximises tension.'},
+  ],
+  expert:[
     {n:'Heavy Single-Leg Raise',m:'Calves',e:'🏆',r:'4x8 ea',l:'expert',t:'Loaded, paused at stretch. Maximum hypertrophy stimulus.'},
     {n:'Plyometric Calf Jump',m:'Calves',e:'💥',r:'4x15',l:'expert',t:'Rapid ground contact, minimal bend. SSC training.'},
     {n:'Barefoot Hill Sprint',m:'Calves',e:'⛰️',r:'6x30s',l:'expert',t:'Forces maximal calf recruitment on every stride.'},
     {n:'Sissy Squat Calf',m:'Calves',e:'🧠',r:'3x12',l:'expert',t:'Calf raise at bottom of sissy squat position. Deep stretch + load.'},
     {n:'Tibialis Raise',m:'Calves',e:'🦴',r:'3x20',l:'expert',t:'Heels on edge, raise toes up. Often neglected anterior lower leg.'},
     {n:'Blood Flow Restriction Raise',m:'Calves',e:'🩸',r:'4x30',l:'expert',t:'Light load with BFR bands. Metabolic overload for lagging calves.'},
+    {n:'Heavy Donkey Raise',m:'Calves',e:'🏋️',r:'4x10',l:'expert',t:'Partner or plate on hips, deep stretch, maximum load.'},
+    {n:'Standing BFR Raise',m:'Calves',e:'🎗️',r:'4x30',l:'expert',t:'BFR bands just below knee. Massive metabolic pump at lighter weights.'},
+  ]
+};
+
+// Backwards-compat alias — SPEC still used by custom/trainer elsewhere
+var SPEC = {
+  beginner: FOREARMS.beginner.concat(CALVES.beginner),
+  intermediate: FOREARMS.intermediate.concat(CALVES.intermediate),
+  expert: FOREARMS.expert.concat(CALVES.expert)
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  ABS / CORE
+// ═══════════════════════════════════════════════════════════════
+var ABS = {
+  beginner:[
+    {n:'Crunch',m:'Abs',e:'🌀',r:'3x15',l:'beginner',t:'Lower back stays down, curl shoulders up. Don\'t pull neck — cross arms on chest.'},
+    {n:'Reverse Crunch',m:'Abs',e:'🌀',r:'3x12',l:'beginner',t:'Knees to chest, lift hips off the floor. Lower back initiates, not momentum.'},
+    {n:'Bicycle Crunch',m:'Abs',e:'🚲',r:'3x16ea',l:'beginner',t:'Rotate elbow to opposite knee, extend other leg fully. Slow and controlled.'},
+    {n:'Plank',m:'Abs',e:'🏔️',r:'3x30-60s',l:'beginner',t:'Elbows under shoulders, dead-straight body, squeeze glutes and abs hard.'},
+    {n:'Side Plank',m:'Abs',e:'↗️',r:'3x20s ea',l:'beginner',t:'Stack feet, push hip up, straight line. Oblique and glute med.'},
+    {n:'Dead Bug',m:'Abs',e:'🐛',r:'3x8ea',l:'beginner',t:'Lower back flat, extend opposite arm and leg simultaneously. Breathe out as you extend.'},
+    {n:'Hollow Body Hold',m:'Abs',e:'🌙',r:'3x15-30s',l:'beginner',t:'Tuck knees first, progress to legs extended. Lower back must stay flat.'},
+    {n:'Leg Raise (lying)',m:'Abs',e:'⬆️',r:'3x10',l:'beginner',t:'Lie flat, raise straight legs to 90°. Hands under glutes for lower back support.'},
+    {n:'Flutter Kick',m:'Abs',e:'🦋',r:'3x20s',l:'beginner',t:'Small rapid kicks, lower back down. Hip flexors and lower abs.'},
+    {n:'Toe Touch Crunch',m:'Abs',e:'👆',r:'3x15',l:'beginner',t:'Legs vertical, reach hands to toes each rep. Upper abs emphasis.'},
+  ],
+  intermediate:[
+    {n:'Ab Wheel Rollout',m:'Abs',e:'⚙️',r:'3x8-12',l:'intermediate',t:'From knees, extend fully without sagging. Pull back in with abs not arms.'},
+    {n:'Hanging Knee Raise',m:'Abs',e:'🏋️',r:'3x12',l:'intermediate',t:'Dead hang, pull knees to chest using abs. Avoid swinging.'},
+    {n:'Dragon Flag (tuck)',m:'Abs',e:'🐉',r:'3x6',l:'intermediate',t:'Shoulders on bench, lower tucked body slowly. Bruce Lee progression.'},
+    {n:'Cable Crunch',m:'Abs',e:'🔗',r:'3x15',l:'intermediate',t:'Kneeling, hands to forehead, crunch down. Keep hips still, spine flexion only.'},
+    {n:'Weighted Plank',m:'Abs',e:'🏔️',r:'3x30-45s',l:'intermediate',t:'Plate on back, brace harder, same principles as bodyweight.'},
+    {n:'Russian Twist (weighted)',m:'Abs',e:'🌀',r:'3x20',l:'intermediate',t:'Lean back 45°, rotate DB side to side. Obliques and transverse abs.'},
+    {n:'L-Sit Hold (floor)',m:'Abs',e:'🧘',r:'3x10-15s',l:'intermediate',t:'On floor or parallettes, legs parallel, compress hip flexors hard.'},
+    {n:'V-Up',m:'Abs',e:'✌️',r:'3x12',l:'intermediate',t:'Simultaneous upper and lower crunch. Touch hands to feet at top.'},
+    {n:'Pallof Press',m:'Abs',e:'🛡️',r:'3x12ea',l:'intermediate',t:'Press away from cable, resist rotation. Anti-rotation core strength.'},
+    {n:'Sit-Up',m:'Abs',e:'⬆️',r:'3x15',l:'intermediate',t:'Full range from flat to upright. Anchor feet if needed. Hip flexors assist — that\'s fine.'},
+    {n:'DB Side Bend',m:'Abs',e:'↕️',r:'3x15ea',l:'intermediate',t:'One DB, lateral flexion, stretch and contract oblique. Keep hips square.'},
+    {n:'Tuck Crunch',m:'Abs',e:'🌀',r:'3x15',l:'intermediate',t:'Back slightly raised, knees to chest and shoulders together. Deep ab contraction.'},
+  ],
+  expert:[
+    {n:'Dragon Flag',m:'Abs',e:'🐉',r:'3x5-8',l:'expert',t:'Shoulders on bench, lower straight body slowly. Full extension every rep.'},
+    {n:'Hanging Leg Raise',m:'Abs',e:'⬆️',r:'3x10',l:'expert',t:'Dead hang, legs straight, raise to 90°+ or toes to bar. Zero swing.'},
+    {n:'Barbell Rollout',m:'Abs',e:'⚙️',r:'3x8',l:'expert',t:'Barbell instead of wheel, even more range. From standing or knees.'},
+    {n:'L-Sit to V-Sit',m:'Abs',e:'🧘',r:'3x5',l:'expert',t:'L-sit, compress up to V-sit. Extreme hip flexor and lower ab strength.'},
+    {n:'Front Lever Hold',m:'Abs',e:'🌊',r:'3x5-10s',l:'expert',t:'Body horizontal below bar, arms straight. Full body tension, abs key.'},
+    {n:'Human Flag',m:'Abs',e:'🚩',r:'3x5s',l:'expert',t:'Side-on to pole, body horizontal, press with bottom arm.'},
+    {n:'Windshield Wiper',m:'Abs',e:'🌬️',r:'3x8ea',l:'expert',t:'Hanging from bar, legs at 90°, rotate side to side. Rotational core strength.'},
+    {n:'Planche Lean',m:'Abs',e:'⚡',r:'3x10s',l:'expert',t:'On parallettes, lean forward until shoulders pass wrists. Core and serratus.'},
+    {n:'Weighted Hanging Raise',m:'Abs',e:'🏋️',r:'3x8',l:'expert',t:'DB between feet, hanging leg raise. Serious load on lower abs.'},
+    {n:'Ab Wheel Standing',m:'Abs',e:'⚙️',r:'3x5-8',l:'expert',t:'Full rollout from standing — elite level core challenge.'},
   ]
 };
 
@@ -2212,6 +2283,18 @@ function getExList(type, level, bp, search){
     var src4=SPEC;
     if(level==='all'){list=src4.beginner.concat(src4.intermediate).concat(src4.expert);}
     else{list=src4[level]||[];}
+  } else if(type==='forearms'){
+    var src5=FOREARMS;
+    if(level==='all'){list=src5.beginner.concat(src5.intermediate).concat(src5.expert);}
+    else{list=src5[level]||[];}
+  } else if(type==='calves'){
+    var src6=CALVES;
+    if(level==='all'){list=src6.beginner.concat(src6.intermediate).concat(src6.expert);}
+    else{list=src6[level]||[];}
+  } else if(type==='abs'){
+    var src7=ABS;
+    if(level==='all'){list=src7.beginner.concat(src7.intermediate).concat(src7.expert);}
+    else{list=src7[level]||[];}
   }
   if(bp&&bp!=='All')list=list.filter(function(x){return x.m===bp;});
   if(search&&search.trim()){
@@ -2231,7 +2314,7 @@ function inCustom(type,x){return customWorkout.some(function(c){return c.k===exK
 // ═══════════════════════════════════════════════════════════════
 function setExType(t){
   exType=t; exBP='All';
-  var types=['fw','cal','spec'];
+  var types=['fw','cal','abs','forearms','calves'];
   document.querySelectorAll('#exTypeTabs .tab-btn').forEach(function(b,i){
     b.className='tab-btn'+(types[i]===t?' active-orange':'');
   });
@@ -2245,8 +2328,8 @@ function setExLevel(l){
   renderExercises();
 }
 function setExBP(p){exBP=p;renderExercises();}
-function resetExTicks(){exTicks={};renderExercises();toast('Ticks cleared!');}
-function toggleExTick(k){exTicks[k]=!exTicks[k];renderExercises();}
+function resetExTicks(){exTicks={};renderExercises();saveAppData();toast('Ticks cleared!');}
+function toggleExTick(k){exTicks[k]=!exTicks[k];renderExercises();saveAppData();}
 
 function openExSR(k, exType, exName){
   var sr=exSR[k]||{};
@@ -2357,12 +2440,14 @@ function openExSR(k, exType, exName){
     exSR[k]={sets:sv,reps:rv,weight:wv};
     document.body.removeChild(overlay);
     renderExercises();
+    saveAppData();
     toast('Saved: '+sv+'x'+rv+(wv?' @ '+wv+'kg':''));
   };
   clearBtn.onclick=function(){
     delete exSR[k];
     document.body.removeChild(overlay);
     renderExercises();
+    saveAppData();
     toast('Reset to default');
   };
   cancelBtn.onclick=function(){document.body.removeChild(overlay);};
@@ -2370,7 +2455,7 @@ function openExSR(k, exType, exName){
 }
 
 function renderExercises(){
-  var visParts=exType==='spec'?['All','Forearms','Grip','Calves']:['All','Chest','Back','Shoulders','Arms','Core','Legs','Glutes'];
+  var visParts=exType==='forearms'?['All','Forearms','Grip']:exType==='calves'?['All','Calves']:exType==='abs'?['All','Abs']:exType==='spec'?['All','Forearms','Grip','Calves']:['All','Chest','Back','Shoulders','Arms','Core','Legs','Glutes'];
   if(visParts.indexOf(exBP)<0)exBP='All';
   document.getElementById('bodyTabs').innerHTML=visParts.map(function(p){
     return '<button class="pill'+(p===exBP?' active':'')+'" onclick="setExBP(\''+p+'\')">'+p+'</button>';
@@ -2434,6 +2519,7 @@ function addToCustom(type, name){
   renderCustomQueue();
   if(curTab==='exercises')renderExercises();
   if(curTab==='custom')renderCustomBrowse();
+  saveAppData();
 }
 
 function custBrowseAdd(btn){
@@ -2711,7 +2797,7 @@ function buildCustomExModal(editIdx){
   overlay.addEventListener('click',function(e){if(e.target===overlay)document.body.removeChild(overlay);});
 }
 
-function clearCustom(){customWorkout=[];renderCustomQueue();renderCustomBrowse();toast('Custom workout cleared');}
+function clearCustom(){customWorkout=[];renderCustomQueue();renderCustomBrowse();saveAppData();toast('Custom workout cleared');}
 
 function startCustomWorkout(){
   if(!customWorkout.length){toast('Add exercises first!');return;}
@@ -2851,7 +2937,7 @@ function addEx(x){
   var newEx={n:x.n,e:x.e,m:x.m,r:x.r,sets:[{reps:'',weight:''}]};
   applyStoredSuggestion(newEx);
   activeEx.push(newEx);
-  renderLogs(); toast('+ '+x.n+(newEx.hasSuggestion?' &#128640;':''));
+  renderLogs(); saveAppData(); toast('+ '+x.n+(newEx.hasSuggestion?' &#128640;':''));
 }
 function intColor(v){
   if(!v||v<1)return 'var(--text2)';
@@ -3140,9 +3226,89 @@ function renderTrackerIdle(){
 }
 
 function upSet(i,j,f,v){if(activeEx[i]&&activeEx[i].sets[j])activeEx[i].sets[j][f]=v;}
-function addSet(i){activeEx[i].sets.push({reps:'',weight:''});renderLogs();}
-function rmSet(i,j){activeEx[i].sets.splice(j,1);if(!activeEx[i].sets.length)activeEx[i].sets.push({reps:'',weight:''});renderLogs();}
-function rmEx(i){activeEx.splice(i,1);renderLogs();}
+function addSet(i){activeEx[i].sets.push({reps:'',weight:''});renderLogs();saveAppData();}
+function rmSet(i,j){activeEx[i].sets.splice(j,1);if(!activeEx[i].sets.length)activeEx[i].sets.push({reps:'',weight:''});renderLogs();saveAppData();}
+function rmEx(i){activeEx.splice(i,1);renderLogs();saveAppData();}
+function autoExportBackup(){
+  try{
+    var data={
+      _exported:new Date().toISOString(),
+      _version:2,
+      gdWorkoutLog:localStorage.getItem('gdWorkoutLog')||'[]',
+      gdBodyweight:localStorage.getItem('gdBodyweight')||'[]',
+      gdCalSchedule:localStorage.getItem('gdCalSchedule')||'{}',
+      gdTrainingStart:localStorage.getItem('gdTrainingStart')||'',
+      gdCustomWorkout:localStorage.getItem('gdCustomWorkout')||'[]',
+      gdExTicks:localStorage.getItem('gdExTicks')||'{}',
+      gdExSR:localStorage.getItem('gdExSR')||'{}',
+      gdRingsTicks:localStorage.getItem('gdRingsTicks')||'{}',
+      gdDeloadCycle:localStorage.getItem('gdDeloadCycle')||'5',
+      gdProgressionSugs:localStorage.getItem('gdProgressionSugs')||'{}',
+      gdPoIncrements:localStorage.getItem('gdPoIncrements')||'{}',
+      gdUserName:localStorage.getItem('gdUserName')||'',
+      gdBwUnit:localStorage.getItem('gdBwUnit')||'kg'
+    };
+    var json=JSON.stringify(data);
+    var blob=new Blob([json],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    var d=new Date();
+    var ds=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    a.href=url;
+    a.download='gorilla-bod-backup-'+ds+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }catch(e){console.warn('Auto-export failed:',e);}
+}
+
+function downloadApp(){
+  try{
+    var html=document.documentElement.outerHTML;
+    var blob=new Blob([html],{type:'text/html'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    var d=new Date();
+    var ds=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    a.href=url;
+    a.download='gorilla-bod-'+ds+'.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast('⬇️ App downloaded!');
+  }catch(e){console.warn('Download failed:',e);}
+}
+function restoreFromFile(input){
+  var file=input.files&&input.files[0];
+  if(!file){return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      var restored=0;
+      var keys=['gdWorkoutLog','gdBodyweight','gdCalSchedule','gdTrainingStart','gdCustomWorkout',
+        'gdExTicks','gdExSR','gdRingsTicks','gdDeloadCycle','gdProgressionSugs',
+        'gdPoIncrements','gdUserName','gdBwUnit'];
+      keys.forEach(function(k){
+        if(data[k]!==undefined&&data[k]!==null){
+          localStorage.setItem(k,data[k]);
+          restored++;
+        }
+      });
+      loadAppData();
+      renderDash();renderExercises();renderProgress();
+      toast('✅ Restored '+restored+' data items — reload to see everything!');
+      input.value='';
+    }catch(err){
+      toast('❌ Restore failed — invalid backup file');
+      input.value='';
+    }
+  };
+  reader.readAsText(file);
+}
+
 function finishWorkout(){
   if(!activeEx.length){toast('Add exercises first!');return;}
   var now=new Date();
@@ -3177,7 +3343,10 @@ function finishWorkout(){
   document.getElementById('trackerIdle').style.display='block';
   document.getElementById('trackerActive').style.display='none';
   toast('🦍 Workout Saved! '+durationMin+'min 💪');
-  setTimeout(function(){showTab('progress');},700);
+  setTimeout(function(){
+    autoExportBackup();
+    showTab('progress');
+  },700);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -4436,18 +4605,25 @@ function timerStart(){
         if(ivCurSec<ivPrevSec&&ivCurSec>0)beepTick();
       }
       if(ivState.remainMs<=0){
-        beepSwitch(); vibePhone();
         if(ivState.phase==='prep'){
+          beepSwitch(); vibePhone();
           ivState.phase='work';ivState.phaseTotal=ivState.workSec*1000;ivState.remainMs=ivState.phaseTotal;
         } else if(ivState.phase==='work'){
           if(ivState.restSec>0){
+            beepSwitch(); vibePhone();
             ivState.phase='rest';ivState.phaseTotal=ivState.restSec*1000;ivState.remainMs=ivState.phaseTotal;
           } else {
+            // No rest — round complete
+            beepFinish(); vibeFinish();
+            toast('Round '+ivState.round+' complete! 🔔');
             ivState.round++;
             if(ivState.round>ivState.totalRounds){ivDone();return;}
             ivState.phase='work';ivState.phaseTotal=ivState.workSec*1000;ivState.remainMs=ivState.phaseTotal;
           }
         } else {
+          // Rest phase ended — full round complete
+          beepFinish(); vibeFinish();
+          toast('Round '+ivState.round+' complete! 🔔');
           ivState.round++;
           if(ivState.round>ivState.totalRounds){ivDone();return;}
           ivState.phase='work';ivState.phaseTotal=ivState.workSec*1000;ivState.remainMs=ivState.phaseTotal;
@@ -6148,6 +6324,20 @@ function saveAppData(){
     localStorage.setItem('gdTrainingStart',trainingStartDate?trainingStartDate.toISOString():'');
     localStorage.setItem('gdWorkoutLog',JSON.stringify(workoutLog));
     localStorage.setItem('gdBodyweight',JSON.stringify(bodyweightLog));
+    localStorage.setItem('gdCustomWorkout',JSON.stringify(customWorkout));
+    localStorage.setItem('gdExTicks',JSON.stringify(exTicks));
+    localStorage.setItem('gdExSR',JSON.stringify(exSR));
+    localStorage.setItem('gdRingsTicks',JSON.stringify(ringsTicks));
+    // Save active session so a refresh mid-workout doesn't lose data
+    if(sessionActive&&activeEx.length){
+      localStorage.setItem('gdActiveEx',JSON.stringify(activeEx));
+      localStorage.setItem('gdSessionStart',sessionStartTime?sessionStartTime.toISOString():'');
+      localStorage.setItem('gdSessionActive','1');
+    } else {
+      localStorage.removeItem('gdActiveEx');
+      localStorage.removeItem('gdSessionStart');
+      localStorage.removeItem('gdSessionActive');
+    }
   }catch(e){}
 }
 function loadAppData(){
@@ -6168,6 +6358,26 @@ function loadAppData(){
     if(pi)poIncrements=JSON.parse(pi);
     var un=localStorage.getItem('gdUserName');
     if(un)userName=un;
+    var cw=localStorage.getItem('gdCustomWorkout');
+    if(cw)customWorkout=JSON.parse(cw);
+    var et=localStorage.getItem('gdExTicks');
+    if(et)exTicks=JSON.parse(et);
+    var esr=localStorage.getItem('gdExSR');
+    if(esr)exSR=JSON.parse(esr);
+    var rt=localStorage.getItem('gdRingsTicks');
+    if(rt)ringsTicks=JSON.parse(rt);
+    // Restore active session if one was in progress
+    var sa=localStorage.getItem('gdSessionActive');
+    if(sa==='1'){
+      var ae=localStorage.getItem('gdActiveEx');
+      if(ae)activeEx=JSON.parse(ae);
+      var sst=localStorage.getItem('gdSessionStart');
+      if(sst)sessionStartTime=new Date(sst);
+      if(activeEx.length){
+        sessionActive=true;
+        // UI will be shown by renderTracker after init
+      }
+    }
   }catch(e){}
 }
 loadAppData();
