@@ -392,7 +392,7 @@ input,select{font-family:'Barlow',sans-serif}
     <button class="more-btn" onclick="showTabClose('mobility')">🧘<div>Mobility</div></button>
     <button class="more-btn" onclick="showTabClose('cardio')">🚴<div>Cardio</div></button>
     <button class="more-btn" onclick="showTabClose('skills')">🎯<div>Skills</div></button>
-    <button class="more-btn" onclick="showTabClose('bands')">🟡<div>Bands</div></button>
+    <button class="more-btn" onclick="showTabClose('bands')">&#129473;<div>Bands</div></button>
   </div>
   <div style="border-top:1px solid #222;margin:8px 12px 0;padding:10px 0 4px;display:flex;gap:8px;justify-content:center">
     <button style="flex:1;background:#1a1a1a;border:1px solid #c8f000;border-radius:8px;color:#c8f000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;padding:8px 4px;cursor:pointer" onclick="closeMoreMenu();autoExportBackup();toast('📦 Backup downloaded!')">💾 BACKUP</button>
@@ -720,7 +720,7 @@ input,select{font-family:'Barlow',sans-serif}
     <button class="tab-btn" id="planTypeBtn-restpause" onclick="setPlanType('restpause')">⏸ Rest-Pause</button>
     <button class="tab-btn" id="planTypeBtn-wave" onclick="setPlanType('wave')">〰️ Wave Load</button>
     <button class="tab-btn" id="planTypeBtn-cal" onclick="setPlanType('cal')">🤸 Calisthenics</button>
-    <button class="tab-btn" id="planTypeBtn-bands" onclick="setPlanType('bands')">🟡 Travel Bands</button>
+    <button class="tab-btn" id="planTypeBtn-bands" onclick="setPlanType('bands')">&#129473; Travel Bands</button>
   </div>
 
   <!-- Days -->
@@ -831,7 +831,7 @@ input,select{font-family:'Barlow',sans-serif}
 
 <!-- BAND ROUTINES -->
 <div class="page" id="page-bands">
-  <div class="section-title">🟡 Band <span>Routines</span></div>
+  <div class="section-title">&#129473; Band <span>Routines</span></div>
   <div class="section-sub">RESISTANCE BANDS — FULL BODY</div>
   <div class="tab-row" id="bandFocusTabs">
     <button class="tab-btn active-orange" onclick="setBandFocus('upper')">💪 Upper</button>
@@ -1557,7 +1557,7 @@ var PLAN_TECH={
     desc:'Bodyweight progressions using leverage, angle and volume to overload. No equipment needed. Builds functional strength and skill simultaneously.',
     howto:'Progress through: easier variation → harder variation → add volume → add load (vest/belt). Master 3 sets of 12+ clean reps before progressing.',
     notes:'Slower strength gains than weights but superior body control. Pair with isometric holds for maximum development.'},
-  bands:{name:'Resistance Bands',icon:'🟡',color:'#ffd60a',
+  bands:{name:'Resistance Bands',icon:'&#129473;',color:'#ffd60a',
     desc:'Full body training with resistance bands only. Perfect for hotel rooms, travel, and holidays. Fits in a bag, hits every muscle. No excuses.',
     howto:'Loop band under foot, anchor to door, or hold with hands. Adjust resistance by shortening the band or doubling it up. Constant tension = great for hypertrophy.',
     notes:'Travel tip: pack 3 bands (light/medium/heavy loop + 1 long resistance band) and you can replicate almost every gym exercise. Bands lose resistance over time — replace annually.'}
@@ -1945,7 +1945,7 @@ var PLANS={
         'Band Lateral Raise — 3 x 15 (under foot)',
         'Band Tricep Pushdown — 3 x 15 (anchor high)',
         'Band Overhead Tricep Ext — 3 x 12',
-        '🟡 No anchor? Use door handle or bed frame'
+        '&#129473; No anchor? Use door handle or bed frame'
       ]},
       {lb:'Day 2 — Pull',tp:'Bands: Back · Biceps · Rear Delts',ex:[
         'Band Pull-Apart — 4 x 20 (arms straight at chest)',
@@ -1954,7 +1954,7 @@ var PLANS={
         'Band Bicep Curl — 3 x 15 (stand on band)',
         'Band Hammer Curl — 3 x 12',
         'Band Rear Delt Fly — 3 x 15',
-        '🟡 Door anchor: thread band over top of door'
+        '&#129473; Door anchor: thread band over top of door'
       ]},
       {lb:'Day 3 — Legs',tp:'Bands: Quads · Glutes · Hamstrings',ex:[
         'Band Squat — 4 x 20 (stand on band, hold at shoulders)',
@@ -1963,7 +1963,7 @@ var PLANS={
         'Band Lateral Walk — 3 x 15ea (loop above knees)',
         'Band Kickback — 3 x 15ea (anchor low)',
         'Band Calf Raise — 3 x 20 (stand on band)',
-        '🟡 Hotel floor is perfect for hip thrusts vs bed'
+        '&#129473; Hotel floor is perfect for hip thrusts vs bed'
       ]}
     ]},
     4:{lb:'Resistance Band Upper/Lower — Travel 4 Day',days:[
@@ -1974,7 +1974,7 @@ var PLANS={
         'Band Lateral Raise — 3 x 15 ea side',
         'Band Front Raise — 3 x 12',
         'Band Tricep Pushdown — 3 x 15',
-        '🟡 Incline press: anchor band at waist height behind you'
+        '&#129473; Incline press: anchor band at waist height behind you'
       ]},
       {lb:'Day 2 — Lower A',tp:'Bands: Quads & Glutes',ex:[
         'Band Squat — 4 x 20',
@@ -1983,7 +1983,7 @@ var PLANS={
         'Band Hip Thrust — 4 x 20',
         'Band Lateral Walk — 3 x 15ea',
         'Band Calf Raise — 4 x 20',
-        '🟡 Double band for more resistance on squats'
+        '&#129473; Double band for more resistance on squats'
       ]},
       {lb:'Day 3 — Upper Pull',tp:'Bands: Back & Biceps',ex:[
         'Band Pull-Apart — 4 x 20',
@@ -1992,7 +1992,7 @@ var PLANS={
         'Band Assisted Pull-Up — 3 x 8 (band over door top)',
         'Band Bicep Curl — 3 x 15',
         'Band Hammer Curl — 3 x 12',
-        '🟡 No pull-up bar? Do band rows standing, lean back further'
+        '&#129473; No pull-up bar? Do band rows standing, lean back further'
       ]},
       {lb:'Day 4 — Lower B',tp:'Bands: Hamstrings & Glutes',ex:[
         'Band Romanian DL — 4 x 15',
@@ -2001,7 +2001,7 @@ var PLANS={
         'Band Clamshell — 3 x 20ea (lying, loop above knees)',
         'Band Glute Bridge — 4 x 20 (loop above knees)',
         'Band Hip Abduction — 3 x 15ea (anchor low, stand sideways)',
-        '🟡 Posterior chain day — great for lower back and glute health'
+        '&#129473; Posterior chain day — great for lower back and glute health'
       ]}
     ]}
   },
@@ -5810,6 +5810,10 @@ var WORKOUT_TYPES=[
   {id:'mobility',label:'Mobility',emoji:'🧘',color:'#30d158'},
   {id:'rest',label:'Rest Day',emoji:'😴',color:'#888780'},
   {id:'custom',label:'Custom',emoji:'⚡',color:'#c8f000'},
+  {id:'skip',label:'Skip Day',emoji:'&#9197;&#65039;',color:'#555555'},
+  {id:'holiday_bw',label:'Holiday — Bodyweight',emoji:'&#127958;&#65039;',color:'#ff9f0a'},
+  {id:'holiday_bands',label:'Holiday — Bands',emoji:'&#129473;',color:'#ff9f0a'},
+  {id:'holiday_custom',label:'Holiday — Custom',emoji:'&#9992;&#65039;',color:'#ff9f0a'},
 ];
 
 function dateKey(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d);}
@@ -5819,6 +5823,20 @@ function startScheduledWorkout(dk){
   var s=calSchedule[dk];
   if(!s)return;
   if(s.type==='rest'){toast('Rest day — you earned it! 🛋️');return;}
+  if(s.type==='skip'){toast('Day skipped — no worries, life happens! &#9197;&#65039;');return;}
+  if(s.type==='holiday_bw'){
+    // Load calisthenics beginner exercises as the workout
+    var bwList=getExList('cal','all','All','').slice(0,8);
+    customWorkout=bwList.map(function(e){return {k:exKey('cal',e),type:'cal',ex:e};});
+    workoutName=s.name||'Holiday Bodyweight';
+    startCustomWorkout();return;
+  }
+  if(s.type==='holiday_bands'){
+    var bandList=getExList('bands','all','All','').slice(0,8);
+    customWorkout=bandList.map(function(e){return {k:exKey('bands',e),type:'bands',ex:e};});
+    workoutName=s.name||'Holiday Bands';
+    startCustomWorkout();return;
+  }
   if(s.exercises&&s.exercises.length){
     // Load into custom workout
     customWorkout=s.exercises.map(function(e){
@@ -5899,15 +5917,18 @@ function renderCalBody(focusKey){
     var sched=calSchedule[dk];
     var isToday=now.getFullYear()===y&&now.getMonth()===m&&now.getDate()===d;
     var isFocus=focusKey===dk;
+    var isSkip=sched&&sched.type==='skip';
+    var isHoliday=sched&&(sched.type==='holiday_bw'||sched.type==='holiday_bands'||sched.type==='holiday_custom');
     var bg=sched?sched.color:'var(--surface2)';
     var txtColor=sched?'var(--bg)':'var(--text)';
     var border=isToday?'2px solid var(--accent)':'2px solid '+(sched?sched.color:'transparent');
 
-    html+='<div data-caldk="'+dk+'" onclick="openDayEditorByKey(this.dataset.caldk)" style="border-radius:8px;padding:5px 3px;text-align:center;cursor:pointer;background:'+(sched?bg+'22':'var(--surface2)')+';border:'+border+';min-height:52px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .15s">'
+    html+='<div data-caldk="'+dk+'" onclick="openDayEditorByKey(this.dataset.caldk)" style="border-radius:8px;padding:5px 3px;text-align:center;cursor:pointer;background:'+(isSkip?'#22222200':(sched?bg+'22':'var(--surface2)'))+';border:'+border+(isSkip?';opacity:.5':'')+(isHoliday?';border-style:dashed':'')+';min-height:52px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .15s">'
       +(isToday?'<div style="position:absolute;top:2px;right:3px;width:5px;height:5px;border-radius:50%;background:var(--accent)"></div>':'')
       +'<div style="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:13px;color:'+(isToday?'var(--accent)':sched?sched.color:'var(--text)')+'">'+d+'</div>'
-      +(sched&&sched.type!=='rest'?'<div style="font-size:14px;line-height:1">'+sched.emoji+'</div><div style="font-size:8px;color:'+(sched?sched.color:'var(--text2)')+';font-family:Barlow Condensed,sans-serif;font-weight:700;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;padding:0 2px">'+sched.name.substring(0,7)+'</div>':'')
-      +(sched&&sched.type==='rest'?'<div style="font-size:14px">😴</div>':'')
+      +(sched&&sched.type!=='rest'&&!isSkip?'<div style="font-size:14px;line-height:1">'+sched.emoji+'</div><div style="font-size:8px;color:'+(sched?sched.color:'var(--text2)')+';font-family:Barlow Condensed,sans-serif;font-weight:700;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;padding:0 2px">'+(isHoliday?'HOLS':sched.name.substring(0,7))+'</div>':'')
+      +(sched&&sched.type==='rest'?'<div style="font-size:14px">&#128564;</div>':'')
+      +(isSkip?'<div style="font-size:12px">&#9197;</div><div style="font-size:7px;color:#555;font-family:Barlow Condensed,sans-serif;font-weight:700;letter-spacing:.5px">SKIP</div>':'')
       +'</div>';
   }
   html+='</div>';
@@ -6061,7 +6082,36 @@ function openDayEditor(dk){
   noteInp.onblur=function(){this.style.borderColor='var(--border)';};
   noteRow.appendChild(noteLabel);noteRow.appendChild(noteInp);
 
-  shBody.appendChild(nameRow);shBody.appendChild(typeRow);shBody.appendChild(exRow);shBody.appendChild(noteRow);
+  // Skip / Holiday section
+  var skipRow=document.createElement('div');skipRow.style.cssText='margin-bottom:14px;padding:12px;background:#111;border-radius:10px;border:1px solid #2a2a2a';
+  var skipLabel=document.createElement('div');
+  skipLabel.style.cssText='font-size:10px;color:var(--text2);font-family:Barlow Condensed,sans-serif;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px';
+  skipLabel.textContent='CAN\'T MAKE IT?';
+  var skipBtns=document.createElement('div');skipBtns.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:6px';
+
+  function makeQuickBtn(emoji,label,color,typeId){
+    var b=document.createElement('button');
+    b.style.cssText='padding:9px 6px;border-radius:8px;border:1px solid '+color+';background:'+color+'18;color:'+color+';font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:11px;cursor:pointer;letter-spacing:.5px;text-align:center;line-height:1.3';
+    b.innerHTML=emoji+'<br>'+label;
+    b.onclick=function(){
+      var nm=document.getElementById('dayWkName').value.trim()||label;
+      var typeObj=WORKOUT_TYPES.find(function(t){return t.id===typeId;})||{emoji:emoji,color:color,label:label};
+      calSchedule[dk]={name:nm||label,type:typeId,emoji:typeObj.emoji,color:typeObj.color,note:'',exercises:[]};
+      document.body.removeChild(overlay2);
+      renderCalBody();renderDash();saveAppData();
+      toast(emoji+' '+label+' saved');
+    };
+    return b;
+  }
+
+  skipBtns.appendChild(makeQuickBtn('&#9197;&#65039;','Skip This Day','#555555','skip'));
+  skipBtns.appendChild(makeQuickBtn('&#127958;&#65039;','Holiday — Bodyweight','#ff9f0a','holiday_bw'));
+  skipBtns.appendChild(makeQuickBtn('&#129473;','Holiday — Bands','#ff9f0a','holiday_bands'));
+  skipBtns.appendChild(makeQuickBtn('&#9992;&#65039;','Holiday — Custom','#ff9f0a','holiday_custom'));
+
+  skipRow.appendChild(skipLabel);skipRow.appendChild(skipBtns);
+
+  shBody.appendChild(nameRow);shBody.appendChild(typeRow);shBody.appendChild(skipRow);shBody.appendChild(exRow);shBody.appendChild(noteRow);
 
   // Actions
   var acts=document.createElement('div');
